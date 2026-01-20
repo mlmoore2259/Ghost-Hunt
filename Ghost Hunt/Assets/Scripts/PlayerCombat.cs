@@ -14,7 +14,7 @@ public class PlayerCombat : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        
     }
 
     private void Awake()
@@ -38,8 +38,8 @@ public class PlayerCombat : MonoBehaviour
     private void OnFire()
     {
         
-         // Get player's current facing direction and position
-         BlastSpawnPoint = player.transform;
+        // Get player's current facing direction and position
+        BlastSpawnPoint = player.transform;
 
         // Instantiate the Blast prefab at the spawn point's position and rotation
         GameObject blast = Instantiate(BlastPrefab, BlastSpawnPoint.position, BlastSpawnPoint.rotation);

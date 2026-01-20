@@ -1,20 +1,24 @@
 using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class WallSection : MonoBehaviour
 {
-    [SerializeField] int health;
+    public int health;
     private int healthDecrease;
-    private bool broken;
-    private bool isBreaking;
-    private bool withGhost;
+    private int coins;
+    public bool broken;
+    [SerializeField] bool isBreaking;
+    [SerializeField] bool atGhost;
     public GameObject physicalWall;
-    public GameObject rebuildTrigger;
+    public Collider2D rebuildTrigger;
+    public PlayerGameInfo playerGameInfo;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-     
+        playerGameInfo = GameObject.Find("PlayerGameInfo").GetComponent<PlayerGameInfo>();
+        physicalWall = this.gameObject;
     }
 
     void Awake()
@@ -22,47 +26,53 @@ public class WallSection : MonoBehaviour
         health = 100;
         broken = false;
         isBreaking = false;
-        withGhost = false;
+        atGhost = false;
         healthDecrease = 10;
     }
 
     // Update is called once per frame
     void Update()
     {
+        coins = playerGameInfo.coins;
         if (health <= 0)
         {
             broken = true;
             physicalWall.SetActive(false);
+
+            // Stop breaking
+            CancelInvoke("ReduceHealth");
+            isBreaking = false;
         }
 
         // Start Breaking
-        if(withGhost && !isBreaking && !broken)
+        else if(atGhost && !isBreaking && !broken)
         {
             InvokeRepeating("ReduceHealth", 0f, 1f);
             isBreaking = true;
         }
 
         // Stop breaking
-        if (!withGhost && isBreaking && !broken)
+        else if (!atGhost && isBreaking)
         {
             CancelInvoke("ReduceHealth");
+            isBreaking = false;
         }
     }
 
-    // Detect ghot collision and rebuild trigger collision
-    private void OnCollisionEnter2D(Collision2D other)
+    // Detect ghost collision and rebuild trigger collision
+    void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            withGhost = true;
+            atGhost = true;
         }
     }
 
-    private void OnCollisionExit2D(Collision2D other)
+    void OnCollisionExit2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            withGhost = false;
+            atGhost = false;
         }
     }
 

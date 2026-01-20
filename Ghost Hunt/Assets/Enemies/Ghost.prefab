@@ -80,8 +80,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 326275485
+  m_SortingLayer: 3
   m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
@@ -170,6 +170,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 086f3410aeb4d4948a26c9c2ba2b7d05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GhostBehavior
+  healthBar: {fileID: 0}
   health: 0
   MoveSpeed: 0
-  PlayerGameInfo: {fileID: 0}
+  playerGameInfo: {fileID: 0}
+  atWall: 0
+  atGhost: 0
+  cleanupFlag: 0
+  cleanupDelimeter: 0

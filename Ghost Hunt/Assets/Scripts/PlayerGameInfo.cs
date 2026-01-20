@@ -7,7 +7,8 @@ public class PlayerGameInfo : MonoBehaviour
     public float health;
     public int score;
     public int coins;
-    public int possessionLvl;
+    public float possessionLvl;
+    public float spiritCleanupHealth;
     private GameObject player;
     private float healthDecrease;
     private bool possessedFlag;
@@ -25,11 +26,12 @@ public class PlayerGameInfo : MonoBehaviour
     {
         health = 100f;
         score = 0;
-        coins = 0;
+        coins = 10;
         possessionLvl = 0;
+        spiritCleanupHealth = 100f;
         healthDecrease = 1f;
         possessedFlag = false;
-}
+    }
 
     // Update is called once per frame
     void Update()

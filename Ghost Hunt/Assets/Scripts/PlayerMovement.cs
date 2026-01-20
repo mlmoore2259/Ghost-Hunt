@@ -10,7 +10,9 @@ public class PlayerMovement : MonoBehaviour
     private PlayerGameInfo playerGameInfo;
     private PlayerControls controls;
     private Rigidbody2D rb;
+    private SpriteRenderer spriteRenderer;
     private Vector2 moveInput;
+    public bool facingRight;
 
     [Header("Movement Settings")]
     public float moveSpeed;
@@ -23,10 +25,12 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         playerGameInfo = GameObject.Find("PlayerGameInfo").GetComponent<PlayerGameInfo>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Awake()
     {
+        facingRight = true;
         moveSpeed = 5f;
         count = 0;
         // Initialize the PlayerControls instance
@@ -52,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
         {
             MoveUpDown();
             MoveLeftRight();
+            Flip(moveInput);
         }
         // Reset count 
         if (count >= possessionFreq)
@@ -88,5 +93,16 @@ public class PlayerMovement : MonoBehaviour
     {
         // Add random movements when possessed
         rb.linearVelocity = new Vector2(Random.Range(-1f, 1f) * moveSpeed, Random.Range(-1f, 1f) * moveSpeed);
+    }
+
+    // Determine which direction the player is facing
+    private void Flip(Vector2 direction)
+    {
+        if (direction.x > 0 && !facingRight || direction.x < 0 && facingRight)
+        {
+            facingRight = !facingRight;
+            spriteRenderer.flipX = !spriteRenderer.flipX;
+        }
+        Debug.Log(transform.forward);
     }
 }

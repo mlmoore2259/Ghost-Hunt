@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -37028696601418956}
   m_Layer: 0
   m_Name: WallSection
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,6 +46,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e37fa4bcb6cc404a88756c100aeb367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WallSection
+  health: 0
+  broken: 0
+  isBreaking: 1
+  atGhost: 0
+  physicalWall: {fileID: 0}
+  rebuildTrigger: {fileID: 0}
+  playerGameInfo: {fileID: 0}
 --- !u!1 &5573623795756477688
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,7 +65,7 @@ GameObject:
   - component: {fileID: 5970676361802391883}
   m_Layer: 0
   m_Name: WallRebuildTrigger
-  m_TagString: Untagged
+  m_TagString: RebuildTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

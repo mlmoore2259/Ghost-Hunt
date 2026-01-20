@@ -80,8 +80,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 326275485
+  m_SortingLayer: 3
   m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
@@ -133,6 +133,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f725b8b4a016440baabb350acdfd7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  playerGameInfo: {fileID: 0}
+  coin: {fileID: 7855987817178907547, guid: f185bf61dc64d8e418287cefbe0d9711, type: 3}
+  playerMovement: {fileID: 0}
 --- !u!58 &4570198574424437444
 CircleCollider2D:
   m_ObjectHideFlags: 0
