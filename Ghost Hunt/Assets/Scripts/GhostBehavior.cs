@@ -82,6 +82,14 @@ public class GhostBehavior : MonoBehaviour
         }
     }
 
+    void OnCollisionStay2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Wall"))
+        {
+            atWall = true;
+        }
+    }
+
     void OnCollisionExit2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Wall"))

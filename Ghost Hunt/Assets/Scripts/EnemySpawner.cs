@@ -14,8 +14,8 @@ public class EnemySpawner : MonoBehaviour
     public List<float> enemiesYCoord;
     public float spawnInterval;
     public float timeUntilStart;
-    public float spawnYMin = -4f;
-    public float spawnYMax = 7f;
+    public float spawnYMin = -2f;
+    public float spawnYMax = 6f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

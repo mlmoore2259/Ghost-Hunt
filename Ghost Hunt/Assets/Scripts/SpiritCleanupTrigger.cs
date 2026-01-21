@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SpiritCleanupTrigger : MonoBehaviour
 {
     [SerializeField] private bool inTrigger;
     [SerializeField] private PlayerGameInfo playerGameInfo;
-    [SerializeField] private bool playerPossessed;
-    [SerializeField] private bool depossessing;
+    [SerializeField] private bool playerPossessed; // player has >= 100 possession level
+    [SerializeField] private bool depossessing; // player is in trigger and actively lowering level
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -14,46 +15,20 @@ public class SpiritCleanupTrigger : MonoBehaviour
 
     private void Awake()
     {
-        inTrigger = false;
-        playerPossessed = false;
-        depossessing = false;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playerGameInfo.possessionLvl >= 100f)
-        {
-            playerPossessed = true;
-        }
-        else
-        {
-            playerPossessed = false;
-        }
-        if (playerGameInfo.possessionLvl == 0)
-        {
-            depossessing = false;
-        }
+        
+    }
 
-        if (inTrigger && (playerPossessed || depossessing))
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player") && Keyboard.current.eKey.IsPressed() && playerGameInfo.possessionLvl >= 100f)
         {
             LowerPossessionLvl();
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            inTrigger = true;
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            inTrigger = false;
         }
     }
 
