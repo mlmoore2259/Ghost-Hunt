@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Vector2 moveInput;
     public bool facingRight;
+    [SerializeField] Light2D flashlight;
 
     [Header("Movement Settings")]
     public float moveSpeed;
@@ -26,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerGameInfo = GameObject.Find("PlayerGameInfo").GetComponent<PlayerGameInfo>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        flashlight = this.gameObject.transform.GetChild(0).gameObject.GetComponent<Light2D>();
     }
 
     private void Awake()
@@ -100,9 +103,20 @@ public class PlayerMovement : MonoBehaviour
     {
         if (direction.x > 0 && !facingRight || direction.x < 0 && facingRight)
         {
-            facingRight = !facingRight;
             spriteRenderer.flipX = !spriteRenderer.flipX;
+            facingRight = !facingRight;
+            // Flip flashlight direction
+            if (flashlight.isActiveAndEnabled)
+            {
+                if (facingRight)
+                {
+                    flashlight.transform.localRotation = Quaternion.Euler(0f, 180f, 90f);
+                }
+                else
+                {
+                    flashlight.transform.localRotation = Quaternion.Euler(0f, 0f, 90f);
+                }
+            }
         }
-        Debug.Log(transform.forward);
     }
 }

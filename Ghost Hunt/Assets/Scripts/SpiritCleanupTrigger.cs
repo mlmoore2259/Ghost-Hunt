@@ -26,7 +26,7 @@ public class SpiritCleanupTrigger : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && Keyboard.current.eKey.IsPressed() && playerGameInfo.possessionLvl >= 100f)
+        if (collision.CompareTag("Player") && Keyboard.current.eKey.IsPressed() && playerGameInfo.possessionLvl > 0f)
         {
             LowerPossessionLvl();
         }

@@ -7,6 +7,7 @@ public class PlayerGameInfo : MonoBehaviour
     public float health;
     public int score;
     public int coins;
+    public int daysSurvived;
     public float possessionLvl;
     public float spiritCleanupHealth;
     private GameObject player;
@@ -27,6 +28,7 @@ public class PlayerGameInfo : MonoBehaviour
         health = 100f;
         score = 0;
         coins = 10;
+        daysSurvived = 0;
         possessionLvl = 0;
         spiritCleanupHealth = 100f;
         healthDecrease = 1f;
@@ -48,10 +50,16 @@ public class PlayerGameInfo : MonoBehaviour
 
        // End possession effects
        if (possessionLvl < 100f && possessedFlag)
-        {
-            possessedFlag = false;
-            CancelInvoke("UpdateHealth");
-        }
+       {
+           possessedFlag = false;
+           CancelInvoke("UpdateHealth");
+       }
+
+       if (health <= 0f)
+       {
+           health = 0f;
+           CancelInvoke("UpdateHealth");
+       }
     }
 
     private void UpdateHealth()

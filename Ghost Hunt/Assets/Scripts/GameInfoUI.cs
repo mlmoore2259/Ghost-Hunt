@@ -12,7 +12,7 @@ public class GameInfoUI : MonoBehaviour
     public GameObject healthText;
     public PlayerGameInfo playerGameInfo;
     private GameObject player;
-    private int dayLengthInSeconds;
+    public int dayLengthInSeconds;
     public string time;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

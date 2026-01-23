@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 /*
  Actions: 
     - Create an instance of the Blast prefab and launch it in the direction the player is facing when left mouse is clicked (new input system)
@@ -10,6 +11,7 @@ public class PlayerCombat : MonoBehaviour
     public GameObject BlastPrefab; // Reference to the Blast prefab
     private Transform BlastSpawnPoint; // Point from which the blast will be launched
     private GameObject player;
+    public GameObject flashlight;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -31,6 +33,11 @@ public class PlayerCombat : MonoBehaviour
             if (Mouse.current.leftButton.wasPressedThisFrame)
             {
                 OnFire();
+            }
+            // Activate flashlight on 'f' key press
+            if (Keyboard.current.fKey.wasPressedThisFrame)
+            {
+                flashlight.SetActive(flashlight.activeSelf ? false : true);
             }
         }
     }
