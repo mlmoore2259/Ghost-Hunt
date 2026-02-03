@@ -21,6 +21,7 @@ public class PlayerGameInfo : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player");
+        DontDestroyOnLoad(this.gameObject);
     }
 
     void Awake()
@@ -60,6 +61,11 @@ public class PlayerGameInfo : MonoBehaviour
            health = 0f;
            CancelInvoke("UpdateHealth");
        }
+
+       if (possessionLvl < 0f)
+       {
+           possessionLvl = 0f;
+        }
     }
 
     private void UpdateHealth()

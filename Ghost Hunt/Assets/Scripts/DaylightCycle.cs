@@ -9,7 +9,6 @@ public class DaylightCycle : MonoBehaviour
     public Light2D globalLight;
     [SerializeField] PlayerGameInfo playerGameInfo;
     public GameInfoUI gameInfoUI;
-    [SerializeField] float dayLengthInSeconds;
     [SerializeField] bool startedDim;
     [SerializeField] bool startedBrighten;
     [SerializeField] float intensityChangePerSecond;
@@ -18,17 +17,16 @@ public class DaylightCycle : MonoBehaviour
     {
         playerGameInfo = GameObject.Find("PlayerGameInfo").GetComponent<PlayerGameInfo>();
         globalLight = this.GetComponent<Light2D>();
+        // Calculate how much the light intensity should change within the update loop
+        // The change occurs over 2 game hours, which is 15 real seconds
+        float timeToChange = gameInfoUI.dayLengthInSeconds / 12;
+        intensityChangePerSecond = 1f / timeToChange;
     }
 
     void Awake()
     {
-        dayLengthInSeconds = gameInfoUI.dayLengthInSeconds;
         startedDim = false;
         startedBrighten = false;
-        // Calculate how much the light intensity should change within the update loop
-        // The change occurs over 2 game hours, which is 15 real seconds
-        float timeToChange = dayLengthInSeconds / 12f; 
-        intensityChangePerSecond = 1f / timeToChange;
     }
 
     // Update is called once per frame
@@ -46,6 +44,10 @@ public class DaylightCycle : MonoBehaviour
         {
             startedDim = false;
             CancelInvoke("Dim");
+            if (globalLight.intensity < 0f)
+            {
+                globalLight.intensity = 0f;
+            }
         }
         // Start brightening
         else if (hour == 4 && !startedBrighten)
@@ -58,6 +60,11 @@ public class DaylightCycle : MonoBehaviour
         {
             startedBrighten = false;
             CancelInvoke("Brighten");
+            playerGameInfo.daysSurvived += 1;
+            if (globalLight.intensity > 1f)
+            {
+                globalLight.intensity = 1f;
+            }
         }
     }
 
@@ -69,7 +76,7 @@ public class DaylightCycle : MonoBehaviour
 
         // Get game time in seconds
         float gameTime = Time.timeSinceLevelLoad;
-        float dayTimeInSeconds = (gameTime % dayLengthInSeconds) + 45;
+        float dayTimeInSeconds = (gameTime % gameInfoUI.dayLengthInSeconds) + 45;
 
         // Convert to hours and minutes
         int totalGameSeconds = Mathf.FloorToInt(dayTimeInSeconds * 480);

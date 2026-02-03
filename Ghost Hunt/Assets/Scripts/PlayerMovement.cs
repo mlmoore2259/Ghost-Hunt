@@ -106,16 +106,13 @@ public class PlayerMovement : MonoBehaviour
             spriteRenderer.flipX = !spriteRenderer.flipX;
             facingRight = !facingRight;
             // Flip flashlight direction
-            if (flashlight.isActiveAndEnabled)
+            if (facingRight)
             {
-                if (facingRight)
-                {
-                    flashlight.transform.localRotation = Quaternion.Euler(0f, 180f, 90f);
-                }
-                else
-                {
-                    flashlight.transform.localRotation = Quaternion.Euler(0f, 0f, 90f);
-                }
+                flashlight.transform.localRotation = Quaternion.Euler(0f, 180f, 90f);
+            }
+            else
+            {
+                flashlight.transform.localRotation = Quaternion.Euler(0f, 0f, 90f);
             }
         }
     }

@@ -10,6 +10,7 @@ public class GameInfoUI : MonoBehaviour
     public GameObject coinText;
     public GameObject timeText;
     public GameObject healthText;
+    public GameObject dayText;
     public PlayerGameInfo playerGameInfo;
     private GameObject player;
     public int dayLengthInSeconds;
@@ -19,6 +20,7 @@ public class GameInfoUI : MonoBehaviour
     void Start()
     {
         playerGameInfo = GameObject.Find("PlayerGameInfo").GetComponent<PlayerGameInfo>();
+        player = GameObject.Find("Player");
     }
 
     void Awake()
@@ -35,22 +37,24 @@ public class GameInfoUI : MonoBehaviour
         {
             // Everything should be displayed as an int
             possessionText.GetComponent<TMPro.TextMeshProUGUI>().color = Color.red;
-            possessionText.GetComponent<TMPro.TextMeshProUGUI>().text = " Possession Level: " + playerGameInfo.possessionLvl.ToString("F0") + "%";
+            possessionText.GetComponent<TMPro.TextMeshProUGUI>().text = " Possession Lvl: " + playerGameInfo.possessionLvl.ToString("F0") + "%";
             scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = " Ghosts Defeated: " + playerGameInfo.score;
             coinText.GetComponent<TMPro.TextMeshProUGUI>().text = " Coins: " + playerGameInfo.coins;
-            timeText.GetComponent<TMPro.TextMeshProUGUI>().text = " " + time;
+            timeText.GetComponent<TMPro.TextMeshProUGUI>().text = time;
             healthText.GetComponent<TMPro.TextMeshProUGUI>().text = " Health: " + playerGameInfo.health.ToString("F0");
             cleanupHealthText.GetComponent<TMPro.TextMeshProUGUI>().text = " Spiritcleanup: " + playerGameInfo.spiritCleanupHealth + "%";
+            dayText.GetComponent<TMPro.TextMeshProUGUI>().text = " Days Survived: " + playerGameInfo.daysSurvived;
         }
         else if (playerGameInfo.health > 0)
         {
             possessionText.GetComponent<TMPro.TextMeshProUGUI>().color = Color.white;
-            possessionText.GetComponent<TMPro.TextMeshProUGUI>().text = " Possession Level: " + playerGameInfo.possessionLvl.ToString("F0") + "%";
+            possessionText.GetComponent<TMPro.TextMeshProUGUI>().text = " Possession Lvl: " + playerGameInfo.possessionLvl.ToString("F0") + "%";
             scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = " Ghosts Defeated: " + playerGameInfo.score;
             coinText.GetComponent<TMPro.TextMeshProUGUI>().text = " Coins: " + playerGameInfo.coins;
-            timeText.GetComponent<TMPro.TextMeshProUGUI>().text = " " + time;
-            healthText.GetComponent<TMPro.TextMeshProUGUI>().text = " Health: " + playerGameInfo.health;
+            timeText.GetComponent<TMPro.TextMeshProUGUI>().text = time;
+            healthText.GetComponent<TMPro.TextMeshProUGUI>().text = " Health: " + playerGameInfo.health.ToString("F0");
             cleanupHealthText.GetComponent<TMPro.TextMeshProUGUI>().text = " Spiritcleanup: " + playerGameInfo.spiritCleanupHealth.ToString("F0") + "%";
+            dayText.GetComponent<TMPro.TextMeshProUGUI>().text = " Days Survived: " + playerGameInfo.daysSurvived;
         }
         if (playerGameInfo.health <= 0f)
         {

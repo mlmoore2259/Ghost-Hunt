@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class RebuildWall : MonoBehaviour
 {
+    public GameObject interactText;
     public WallSection wallSection;
     public PlayerGameInfo playerGameInfo;
     public GameObject physicalWall;
@@ -41,6 +42,8 @@ public class RebuildWall : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             inRebuildTrigger = true;
+            interactText.SetActive(true);
+            interactText.GetComponent<TMPro.TextMeshProUGUI>().text = "[R] (10 Coins)";
         }
     }
 
@@ -49,6 +52,7 @@ public class RebuildWall : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             inRebuildTrigger = false;
+            interactText.SetActive(false);
         }
     }
 

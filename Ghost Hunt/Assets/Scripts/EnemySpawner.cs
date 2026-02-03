@@ -10,30 +10,33 @@ public class EnemySpawner : MonoBehaviour
      Spawns enemies at random Y position every 2 seconds
      */
     public GameObject enemy;
-    private GameObject player;
+    private PlayerGameInfo playerGameInfo;
     public List<float> enemiesYCoord;
     public float spawnInterval;
     public float timeUntilStart;
-    public float spawnYMin = -2f;
-    public float spawnYMax = 6f;
+    public float spawnYMin;
+    public float spawnYMax;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         // Create timer to spawn enemies every 2 seconds
         InvokeRepeating("SpawnEnemy", timeUntilStart, spawnInterval);
-        player = GameObject.FindWithTag("Player");
+        playerGameInfo = GameObject.Find("PlayerGameInfo").GetComponent<PlayerGameInfo>();
     }
     private void Awake()
     {
         spawnInterval = 4.0f;
         timeUntilStart = 2.0f;
+        spawnYMin = -3.0f;
+        spawnYMax = 5.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        // Decrease the spawn interval by 0.25 for every day survived, to a minimum of 1 second
+        spawnInterval = Mathf.Max(1.0f, 4.0f - 0.25f * playerGameInfo.daysSurvived);
     }
 
     private float BestCandidate()

@@ -3,10 +3,8 @@ using UnityEngine.InputSystem;
 
 public class SpiritCleanupTrigger : MonoBehaviour
 {
-    [SerializeField] private bool inTrigger;
+    public GameObject interactText;
     [SerializeField] private PlayerGameInfo playerGameInfo;
-    [SerializeField] private bool playerPossessed; // player has >= 100 possession level
-    [SerializeField] private bool depossessing; // player is in trigger and actively lowering level
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -24,9 +22,26 @@ public class SpiritCleanupTrigger : MonoBehaviour
         
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.CompareTag("Player") && Keyboard.current.eKey.IsPressed() && playerGameInfo.possessionLvl > 0f)
+        if (other.CompareTag("Player"))
+        {
+            interactText.SetActive(true);
+            interactText.GetComponent<TMPro.TextMeshProUGUI>().text = "[E]";
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            interactText.SetActive(false);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Player") && Keyboard.current.eKey.IsPressed() && (playerGameInfo.possessionLvl > 0f))
         {
             LowerPossessionLvl();
         }
@@ -34,6 +49,6 @@ public class SpiritCleanupTrigger : MonoBehaviour
 
     void LowerPossessionLvl()
     {
-        playerGameInfo.possessionLvl -= 0.001f * playerGameInfo.spiritCleanupHealth;
+        playerGameInfo.possessionLvl -= 0.01f * playerGameInfo.spiritCleanupHealth;
     }
 }

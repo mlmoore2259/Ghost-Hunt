@@ -22,10 +22,31 @@ public class GhostBehavior : MonoBehaviour
     {
         atWall = false;
         atGhost = false;
-        health = 100f;
         MoveSpeed = 2f;
         cleanupFlag = true;
         cleanupDelimeter = 13f;
+        if (playerGameInfo.daysSurvived >= 10)
+        {
+            health = 125f;
+            MoveSpeed = 3f;
+        }
+        else if (playerGameInfo.daysSurvived >= 7)
+        {
+            health = 100f;
+            MoveSpeed = 3f;
+        }
+        else if (playerGameInfo.daysSurvived >= 5)
+        {
+            health = 100f;
+        }
+        else if (playerGameInfo.daysSurvived >= 3)
+        {
+            health = 75f;
+        }
+        else
+        {
+            health = 50f;
+        }
     }
 
     // Update is called once per frame

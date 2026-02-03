@@ -27,12 +27,18 @@ public class SpiritCleanupBehavior : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        InvokeRepeating("UpdateHealth", 0f, 3f);
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            InvokeRepeating("UpdateHealth", 0f, 3f);
+        }
     }
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        CancelInvoke("UpdateHealth");
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            CancelInvoke("UpdateHealth");
+        }
     }
 
     void UpdateHealth()
